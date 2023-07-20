@@ -1,0 +1,14 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/bionic64"
+  config.vm.network :forwarded_port, guest: 22, host: 2223 
+  config.vm.network "public_network", bridge: "wlp3s0" 
+  config.vm.provider "virtualbox" do |vb|
+   vb.name = "VM1"
+   vb.memory = "2048"
+  end
+  config.vm.provision "shell",
+    inline: "su - levi"
+end

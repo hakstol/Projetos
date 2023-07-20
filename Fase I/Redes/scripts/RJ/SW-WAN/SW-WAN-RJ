@@ -1,0 +1,60 @@
+enable
+configure terminal
+hostname SW-WAN-RJ
+enable secret enable@sec4u
+banner motd "ACESSO SOMENTE PESSOAS AUTORIZADAS!"
+ip domain name sec4u.local
+crypto key generate rsa general-keys modulus 1024
+username root privilege 15 secret root@sec4u
+line vty 0 15 
+password ssh@sec4u
+transport input ssh
+login local
+exit
+line console 0
+password console@sec4u
+exit
+service password-encryption
+no ip domain-lookup
+vlan 10
+name Desenvolvimento
+vlan 20
+name Infra
+vlan 30
+name Cloud
+vlan 40
+name Mobile
+vlan 50
+name Marketing
+vlan 60
+name RH
+exit
+spanning-tree vlan 10,20,30,40,50,60 priority 4096
+int g0/1
+description CONECTADA AO RT-RJ
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+int g1/1
+description CONECTADA AO FW01-RJ
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+int g2/1
+description CONECTADA AO FW02-RJ
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+int g3/1
+description CONECTADA AO SW01-CORE-RJ
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+int g4/1
+description CONECTADA AO SW02-CORE-RJ
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+exit
+exit
+copy running-config startup-config 

@@ -1,0 +1,113 @@
+enable
+configure terminal
+hostname SW01-CORE-SP
+enable secret enable@sec4u
+banner motd "ACESSO SOMENTE PESSOAS AUTORIZADAS!"
+ip domain name sec4u.sp.local
+crypto key generate rsa general-keys modulus 1024
+username root privilege 15 secret root@sec4u
+line vty 0 15 
+password ssh@sec4u
+transport input ssh
+login local
+exit
+line console 0
+password console@sec4u
+exit
+service password-encryption
+no ip domain-lookup
+vlan 10
+name Desenvolvimento
+vlan 20
+name Infra
+vlan 30
+name Cloud
+vlan 40
+name Mobile
+vlan 50
+name Marketing
+vlan 60
+name RH
+exit
+spanning-tree 10,20,30,40,50,60 priority 0
+!--- rotas ---!
+ip route 0.0.0.0 0.0.0.0 Vlan10 
+ip route 0.0.0.0 0.0.0.0 Vlan20 
+ip route 0.0.0.0 0.0.0.0 Vlan30 
+ip route 0.0.0.0 0.0.0.0 Vlan40
+!--- dhcp ---!
+ip dhcp pool vlan10
+network 192.168.1.0 255.255.255.240
+default-router 192.168.1.1
+ip dhcp pool vlan20
+network 192.168.2.0 255.255.255.240
+default-router 192.168.2.1
+ip dhcp pool vlan30
+network 192.168.3.0 255.255.255.240
+default-router 192.168.3.1
+ip dhcp pool vlan40
+network 192.168.4.0 255.255.255.240
+default-router 192.168.4.1
+!--- int vlans ---!
+interface vlan 1
+ip address 172.16.0.1 255.255.255.248
+interface vlan 10
+ip address 192.168.1.1 255.255.255.240
+interface vlan 20
+ip address 192.168.2.1 255.255.255.240
+interface vlan 30
+ip address 192.168.3.1 255.255.255.240
+interface vlan 40
+ip address 192.168.4.1 255.255.255.240
+!--- int sw-access ---!
+interface g1/0/1
+description CONECTADA AO SW01-ACCESS-SP
+no shutdown
+interface g1/0/2
+description CONECTADA AO SW02-ACCESS-SP
+no shutdown
+interface g1/0/3
+description CONECTADA AO SW03-ACCESS-SP
+no shutdown
+interface g1/0/4
+description CONECTADA AO SW04-ACCESS-SP
+no shutdown
+interface range g1/0/1-4
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+!--- int fw ---!
+interface g1/0/5
+description CONECTADA AO FW01-SP
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+!--- int sw-core ---!
+interface g1/0/6
+description CONECTADA AO SW02-CORE-SP 
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+interface g1/0/7
+description LINK DE BACKUP SW02-CORE-SP 
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+!--- int sw-wan ---!
+interface g1/0/10
+description CONECTADA AO SW-WAN-SP
+switchport mode trunk
+switchport trunk allowed vlan 10,20,30,40,50,60
+no shutdown
+!--- int shutdown ---!
+interface range g1/0/8-9
+shutdown
+interface range g1/0/11-23
+shutdown
+!--- int srv ---!
+interface g1/0/24
+description CONECTADA AO SRV-SP
+no shutdown
+exit
+exit
+copy running-config startup-config 

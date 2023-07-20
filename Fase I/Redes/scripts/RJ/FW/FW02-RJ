@@ -1,0 +1,15 @@
+configure terminal
+hostname FW02-RJ
+enable password enable@sec4u
+username root password root@sec4u
+interface e0/0
+no shutdown
+interface e0/1
+no shutdown
+interface vlan 1
+nameif inside
+ip address 172.16.1.3 255.255.255.248
+no shutdown
+exit
+exit
+copy running-config startup-config

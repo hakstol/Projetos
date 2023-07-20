@@ -1,0 +1,47 @@
+enable
+configure terminal
+hostname RT03-SP
+enable secret enable@sec4u
+banner motd "ACESSO SOMENTE PESSOAS AUTORIZADAS!"
+ip domain name sec4u.local
+crypto key generate rsa general-keys modulus 1024
+username root privilege 15 secret root@sec4u
+line vty 0 15 
+password ssh@sec4u
+transport input ssh
+login local
+exit
+line console 0
+password console@sec4u
+exit
+service password-encryption
+no ip domain-lookup
+ip dhcp pool vlan50
+network 192.168.5.0 255.255.255.240
+default-router 192.168.5.10	
+ip dhcp pool vlan60
+network 192.168.6.0 255.255.255.240
+default-router 192.168.6.10
+exit
+int s0/0/0
+ip address 200.200.3.1 255.255.255.248
+no shutdown
+int s0/0/1
+ip address 200.200.1.2 255.255.255.248
+no shutdown
+int g0/0
+no shutdown
+int g0/0.50
+encapsulation dot1q 60
+ip address 192.168.5.10 255.255.255.240
+int g0/0.60
+encapsulation dot1q 60
+ip address 192.168.6.10 255.255.255.240
+exit
+int g0/1
+shutdown 
+exit
+ip route 0.0.0.0 0.0.0.0 200.200.1.1 
+ip route 0.0.0.0 0.0.0.0 200.200.3.2
+exit
+copy running-config startup-config 

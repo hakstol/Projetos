@@ -1,0 +1,56 @@
+enable
+configure terminal
+hostname SW03-ACCESS-SP
+enable secret enable@sec4u
+banner motd "ACESSO SOMENTE PESSOAS AUTORIZADAS!"
+ip domain name sec4u.sp.local
+crypto key generate rsa general-keys modulus 1024
+username root privilege 15 secret root@sec4u
+line vty 0 15 
+password ssh@sec4u
+transport input ssh
+login local
+exit
+line console 0
+password console@sec4u
+exit
+service password-encryption
+no ip domain-lookup
+vlan 10
+name Desenvolvimento
+vlan 20
+name Infra
+vlan 30
+name Cloud
+vlan 40 
+name Mobile
+vlan 50
+name Marketing
+vlan 60
+name RH
+exit
+!--- int access ---!
+interface f1/1
+switchport mode access
+switchport access vlan 30
+description CONECTADA AO PC05-SP
+no shutdown
+interface f2/1
+switchport mode access
+switchport access vlan 30
+description CONECTADA AO PC06-SP
+no shutdown
+!--- int sw-core ---!
+interface g3/1
+description CONECTADA AO SW01-CORE-SP
+switchport trunk allowed vlan 10,20,30,40,50,60
+switchport mode trunk
+no shutdown
+interface g4/1
+description CONECTADA AO SW02-CORE-SP
+switchport trunk allowed vlan 10,20,30,40,50,60
+switchport mode trunk
+no shutdown
+exit
+exit
+copy running-config startup-config 
