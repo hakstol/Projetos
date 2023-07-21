@@ -1,11 +1,12 @@
 <h1 align="center">Fase I</h1>
 
-<h2>Redes</h2>
+<h3>Redes</h3>
 
 <h3>Topologia</h3>
 <img src="https://github.com/hakstol/Projetos/blob/main/Fase%20I/Redes/topologia-pt1.png" /img>
 <img src="https://github.com/hakstol/Projetos/blob/main/Fase%20I/Redes/topologia-pt2.png" /img>
-<ul>Dispositivos utilizados:</ul>
+
+<ul align="left">Dispositivos utilizados:</ul>
 <li>PCs (9)</li>
 <li>Laptops (4)</li>
 <li>Printer (1)</li>
