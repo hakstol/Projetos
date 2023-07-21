@@ -1,5 +1,5 @@
 <h1>Projetos</h1>
-<h2>Fase I</h2>
+<h1>Fase I</h1>
 
 <h3>Redes</h3>
 
