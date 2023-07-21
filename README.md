@@ -20,7 +20,7 @@
 
 <h3>SO</h3>
 
-<h4>VMs</h4>
+<h4 align="left">VMs</h4>
 <li>VM1: ubuntu/bionic64</li>
 <li>VM2: ubuntu/bionic64</li>
 
