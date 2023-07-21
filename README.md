@@ -42,5 +42,6 @@
 
 <hr /hr>
 
-<h3 align="left">Plano de atividades: https://trello.com/invite/b/XF8ynwQf/ATTI5ec5e68e6e63376c076c8954ea6d49657503141A/fase-i</h3>
-<h3 align="left">Detalhes de escopo: https://ultra-petroleum-860.notion.site/Projetos-6e369fa7f98b42d8866c2c10b8fa5c04?pvs=4</h3>
+<h3>Documentação</h3>
+<p align="left">Plano de atividades: https://trello.com/invite/b/XF8ynwQf/ATTI5ec5e68e6e63376c076c8954ea6d49657503141A/fase-i</p>
+<p align="left">Detalhes de escopo: https://ultra-petroleum-860.notion.site/Projetos-6e369fa7f98b42d8866c2c10b8fa5c04?pvs=4</p>
