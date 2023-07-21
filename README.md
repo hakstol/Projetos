@@ -2,5 +2,5 @@
 
 <h3>Fase 1</h3>
 
-<ul>Redes</ul>
-<ul>SO</ul>
+<ol>Redes</ol>
+<ol>SO</ol>
