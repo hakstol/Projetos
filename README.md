@@ -27,7 +27,7 @@
 - 2048 memory
   
 </li>
-<li>VM2: ubuntu/bionic64
+<li>VM2: 
 - ubuntu/bionic64
 - (1) interface NAT, (1) interface bridge
 - 2048 memory
@@ -38,5 +38,5 @@
 <h3>Guia para testar o projeto</h3>
 
 <p align="left">No seu computador, em uma pasta, realizar o seguinte comando:</p>
-<ul><strong>git clone https://github.com/hakstol/Projetos.git</strong></ul>
+<p align="left"><strong>git clone https://github.com/hakstol/Projetos.git</strong></p>
 
